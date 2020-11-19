@@ -1,0 +1,72 @@
+@import 'util.css';
+@import 'loading.css';
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+  font-family: 'DM Sans', sans-serif;
+}
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+h1 {
+  font-size: 3.5rem;
+  margin-top: 2.5rem;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  width: 8rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 0.5rem;
+  margin-top: 5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 5rem;
+}
+.cargando {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 10rem;
+  z-index: 10;
+}

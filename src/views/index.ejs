@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placas</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body onload="onLoad()">
+    <div id="cargando" class="cargando">CARGANDO</div>
+    <header>
+      <h1>Seguimiento de placas peajes</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Por favor seleccione un archivo de excel</h2>
+        <article>
+          <input
+            id="file-upload"
+            type="file"
+            name="file"
+            id="file"
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          />
+          <div id="button-upload" class="button blue-600">Subir</div>
+        </article>
+      </section>
+    </main>
+    <footer>&copy; 2020 - David Ramírez & Co.</footer>
+    <script src="index.js"></script>
+  </body>
+</html>
