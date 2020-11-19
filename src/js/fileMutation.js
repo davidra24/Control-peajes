@@ -31,18 +31,18 @@ const fileMutation = async (file, res) => {
           if (categoria !== 1 && categoria !== 2) {
             const indexed = rows.findIndex((row) => row.placa === placa);
             if (indexed === -1) {
-              rows.push({ placa, info: [{ index: i, pago }] });
+              rows.push({ placa, info: [{ index: i, pago, categoria }] });
             } else {
               const auxRow = Object.assign({}, rows[indexed]);
               const auxInfo = Object.assign([], auxRow.info);
               const exists =
                 auxInfo.findIndex((infoIndex) => infoIndex.index === i) !== -1;
               if (!exists) {
-                auxInfo.push({ index: i, pago });
+                auxInfo.push({ index: i, pago, categoria });
                 auxRow.info = auxInfo;
                 if (auxRow.placa === placa) {
                   auxInfo.forEach((infoPay) => {
-                    if (infoPay.pago !== pago) {
+                    if (infoPay.categoria !== categoria) {
                       auxRow.noIgual = true;
                     }
                   });
@@ -62,12 +62,35 @@ const fileMutation = async (file, res) => {
         info.forEach((modifySheet) => {
           const { index } = modifySheet;
           const categoria = trazabilidadSheet.cell(`M${index}`).value();
-          //trazabilidadSheet.row(index).style('bold');
-          //trazabilidadSheet.cell(`S${index}`).value('*');
-          if (categoria === 3 || categoria === 4) {
-            trazabilidadSheet.cell(`P${index}`).style('fill', '3399ff');
-          } else {
-            trazabilidadSheet.cell(`P${index}`).style('fill', 'ffff00');
+          switch (categoria) {
+            case 1: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', '2095F2');
+              break;
+            }
+            case 2: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', 'FF5D33');
+              break;
+            }
+            case 3: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', 'd8b6df');
+              break;
+            }
+            case 4: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', '34c048');
+              break;
+            }
+            case 5: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', '3399ff');
+              break;
+            }
+            case 6: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', 'ffff00');
+              break;
+            }
+            case 7: {
+              trazabilidadSheet.cell(`M${index}`).style('fill', '74C964');
+              break;
+            }
           }
         });
       });
