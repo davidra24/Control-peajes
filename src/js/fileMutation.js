@@ -25,27 +25,30 @@ const fileMutation = async (file, res) => {
       for (let i = 2; i <= limitSheet && continuation; i++) {
         const placa = trazabilidadSheet.cell(`P${i}`).value();
         const pago = trazabilidadSheet.cell(`N${i}`).value();
+        const categoria = trazabilidadSheet.cell(`M${i}`).value();
         if (placa === undefined) continuation = false;
         else {
-          const indexed = rows.findIndex((row) => row.placa === placa);
-          if (indexed === -1) {
-            rows.push({ placa, info: [{ index: i, pago }] });
-          } else {
-            const auxRow = Object.assign({}, rows[indexed]);
-            const auxInfo = Object.assign([], auxRow.info);
-            const exists =
-              auxInfo.findIndex((infoIndex) => infoIndex.index === i) !== -1;
-            if (!exists) {
-              auxInfo.push({ index: i, pago });
-              auxRow.info = auxInfo;
-              if (auxRow.placa === placa) {
-                auxInfo.forEach((infoPay) => {
-                  if (infoPay.pago !== pago) {
-                    auxRow.noIgual = true;
-                  }
-                });
+          if (categoria !== 1 && categoria !== 2) {
+            const indexed = rows.findIndex((row) => row.placa === placa);
+            if (indexed === -1) {
+              rows.push({ placa, info: [{ index: i, pago }] });
+            } else {
+              const auxRow = Object.assign({}, rows[indexed]);
+              const auxInfo = Object.assign([], auxRow.info);
+              const exists =
+                auxInfo.findIndex((infoIndex) => infoIndex.index === i) !== -1;
+              if (!exists) {
+                auxInfo.push({ index: i, pago });
+                auxRow.info = auxInfo;
+                if (auxRow.placa === placa) {
+                  auxInfo.forEach((infoPay) => {
+                    if (infoPay.pago !== pago) {
+                      auxRow.noIgual = true;
+                    }
+                  });
+                }
+                rows[indexed] = auxRow;
               }
-              rows[indexed] = auxRow;
             }
           }
           realLimit = i;
@@ -58,9 +61,14 @@ const fileMutation = async (file, res) => {
         const { info } = filter;
         info.forEach((modifySheet) => {
           const { index } = modifySheet;
+          const categoria = trazabilidadSheet.cell(`M${index}`).value();
           //trazabilidadSheet.row(index).style('bold');
-          trazabilidadSheet.cell(`S${index}`).value('*');
-          trazabilidadSheet.cell(`P${index}`).style('fill', 'ffff00');
+          //trazabilidadSheet.cell(`S${index}`).value('*');
+          if (categoria === 3 || categoria === 4) {
+            trazabilidadSheet.cell(`P${index}`).style('fill', '3399ff');
+          } else {
+            trazabilidadSheet.cell(`P${index}`).style('fill', 'ffff00');
+          }
         });
       });
 
