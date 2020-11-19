@@ -6,7 +6,7 @@ const { fileMutation } = require('./js/fileMutation');
 const bodyParser = require('body-parser');
 
 //settings
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //middlewares
@@ -23,8 +23,6 @@ app.use(bodyParser.text({ limit: '50mb' }));
 app.get('/', (req, res) => {
   res.render('index');
 });
-
-const storage = multer.diskStorage({});
 
 app.post('/upload', (req, res) => {
   const file = req.body;
