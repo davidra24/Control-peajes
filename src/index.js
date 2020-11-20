@@ -26,10 +26,9 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/upload', (req, res) => {
+app.post('/upload', async (req, res) => {
   const file = req.body;
-  req.setTimeout(0);
-  fileMutation(file, res);
+  await fileMutation(file, res);
 });
 //static files
 

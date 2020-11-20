@@ -6,7 +6,7 @@ const path = require('path');
 const fileMutation = async (file, res) => {
   try {
     //const fullName = save(file);
-    const base64Data = noHeaderBase64XLSX(file);
+    const base64Data = await noHeaderBase64XLSX(file);
     if (base64Data) {
       // Load an existing workbook
       const workbook = await XlsxPopulate.fromDataAsync(base64Data, {
@@ -18,7 +18,6 @@ const fileMutation = async (file, res) => {
       //console.log('trazabilidad', trazabilidadSheet);
       const limitSheet = 80000;
       let continuation = true;
-      let realLimit = 0;
 
       const rows = [];
       //{placa: ###, info: [{index: #, pago: $}]}
@@ -52,7 +51,6 @@ const fileMutation = async (file, res) => {
               }
             }
           }
-          realLimit = i;
         }
       }
 
@@ -101,14 +99,13 @@ const fileMutation = async (file, res) => {
       const base64DataResponse =
         'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' +
         newFile;
-      res.setHeader('content-type', 'text/plain');
-      res.status(200).send(base64DataResponse);
+      await res.setHeader('content-type', 'text/plain');
+      await res.status(200).send(base64DataResponse);
     } else {
-      res.status(500);
+      await res.status(500);
     }
   } catch (error) {
-    console.log(error.message);
-    res.status(500);
+    await res.status(500);
   }
 };
 
