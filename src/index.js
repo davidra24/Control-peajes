@@ -4,11 +4,13 @@ const path = require('path');
 const multer = require('multer');
 const { fileMutation } = require('./js/fileMutation');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //settings
 const port = process.env.PORT || 5000;
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(cors());
 //middlewares
 app.use(express.static(__dirname + '/views'));
 app.use(
@@ -26,6 +28,7 @@ app.get('/', (req, res) => {
 
 app.post('/upload', (req, res) => {
   const file = req.body;
+  req.setTimeout(0);
   fileMutation(file, res);
 });
 //static files
