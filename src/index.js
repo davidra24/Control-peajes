@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.post('/upload', async (req, res) => {
   const file = req.body;
-  await fileMutation(file, res);
+  return await fileMutation(file, res);
 });
 //static files
 
