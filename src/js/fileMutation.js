@@ -14,9 +14,9 @@ const fileMutation = async (file, res) => {
       });
       // Modify the workbook.
       const trazabilidadSheet = await workbook.sheet('Trazabilidad');
-      if (!trazabilidadSheet) res.status(501);
+      if (!trazabilidadSheet) res.status(510);
       //console.log('trazabilidad', trazabilidadSheet);
-      const limitSheet = 53390;
+      const limitSheet = 80000;
       let continuation = true;
       let realLimit = 0;
 

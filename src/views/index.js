@@ -22,17 +22,24 @@ button.addEventListener('click', () => {
         headers: {
           'Content-Type': 'text/plain',
         },
-      }).then(async (res) => {
-        if (res.status === 200) {
-          const result = await res.text();
+      })
+        .then(async (res) => {
+          if (res.status === 200) {
+            return res.text();
+          } else if (res.satus === 510) {
+            alert('El nombre de la hoja debe ser "Trazabilidad"');
+            handleLoading(false);
+          } else {
+            alert('Ocurrió un problema al subir el archivo');
+            handleLoading(false);
+          }
+        })
+        .then((result) => {
+          //const result = await res.text();
           toXLSX(result);
           file.value = '';
           handleLoading(false);
-        } else {
-          alert('Ocurrió un problema al subir el archivo');
-          handleLoading(false);
-        }
-      });
+        });
     });
   } else {
     alert('no permitido');
