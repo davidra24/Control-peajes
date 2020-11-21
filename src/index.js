@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const multer = require('multer');
 const { fileMutation } = require('./js/fileMutation');
 const bodyParser = require('body-parser');
 const cors = require('cors');

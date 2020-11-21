@@ -12,7 +12,6 @@ function handleLoading(isVisible) {
 button.addEventListener('click', () => {
   const file = document.getElementById('file-upload');
   const xlsx = file.files[0];
-  console.log('xlsx', xlsx);
   if (xlsx) {
     handleLoading(true);
     toBase64(xlsx).then((body) => {
