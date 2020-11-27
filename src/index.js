@@ -19,15 +19,15 @@ app.use(
     extended: true,
   })
 );
-app.use(bodyParser.text({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 app.get('/', (req, res) => {
   res.render('index');
 });
 
 app.post('/upload', async (req, res) => {
-  const file = req.body;
-  return await fileMutation(file, res);
+  const files = req.body;
+  return await fileMutation(files, res);
 });
 //static files
 

@@ -54,9 +54,9 @@ article {
   font-size: 1.5rem;
   cursor: pointer;
 }
-h2 {
+.title-input {
   font-size: 2.2rem;
-  margin-bottom: 5rem;
+  margin: 2.5rem 0;
 }
 .cargando {
   width: 100vw;
@@ -69,4 +69,20 @@ h2 {
   color: white;
   font-size: 10rem;
   z-index: 10;
+}
+.select-input {
+  border: none;
+  font-size: 2rem;
+  width: 90%;
+  height: 50%;
+}
+
+.select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  width: 25rem;
+  height: 5rem;
 }

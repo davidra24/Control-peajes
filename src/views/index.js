@@ -11,15 +11,24 @@ function handleLoading(isVisible) {
 
 button.addEventListener('click', () => {
   const file = document.getElementById('file-upload');
+  const file2 = document.getElementById('file-upload-2');
+  const sentidoSelect = document.getElementById('sentido-select');
   const xlsx = file.files[0];
-  if (xlsx) {
+  const xlsx2 = file2.files[0];
+  const sentido = sentidoSelect.value;
+  if (xlsx && xlsx2 && sentido) {
     handleLoading(true);
-    toBase64(xlsx).then((body) => {
+    firstXLSX = toBase64(xlsx);
+    secondXLSX = toBase64(xlsx2);
+    Promise.all([firstXLSX, secondXLSX]).then((responses) => {
+      const first = responses[0];
+      const second = responses[1];
+
       fetch('/upload', {
         method: 'POST',
-        body: body,
+        body: JSON.stringify({ first, second, sentido }),
         headers: {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
       })
         .then(async (res) => {
@@ -37,6 +46,8 @@ button.addEventListener('click', () => {
           //const result = await res.text();
           toXLSX(result);
           file.value = '';
+          file2.value = '';
+          sentidoSelect.value = '';
           handleLoading(false);
         });
     });
