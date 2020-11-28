@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "electron": "electron .",
-    "deploy-electron": "electron-packager ./src Peajes --platform=win32 --arch=x64"
+    "deploy-electron": "electron-packager . Peajes --platform win32 --arch x64 --out dist/"
   },
   "dependencies": {
     "atob": "^2.1.2",
