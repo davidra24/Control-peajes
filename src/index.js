@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 //settings
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(cors());
