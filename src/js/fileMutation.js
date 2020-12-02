@@ -24,28 +24,30 @@ const fileMutation = async (file, res) => {
 
       for (let i = 2; i <= limitSheet && continuation; i++) {
         const placa = trazabilidadSheet.cell(`P${i}`).value();
-        const pago = trazabilidadSheet.cell(`N${i}`).value();
         const categoria = trazabilidadSheet.cell(`M${i}`).value();
         if (placa === undefined) continuation = false;
         else {
           if (categoria !== 1 && categoria !== 2) {
             const indexed = rows.findIndex((row) => row.placa === placa);
             if (indexed === -1) {
-              rows.push({ placa, info: [{ index: i, pago, categoria }] });
+              rows.push({
+                placa,
+                info: [{ index: i, categoria }],
+                noIgual: false,
+              });
             } else {
               const auxRow = Object.assign({}, rows[indexed]);
               const auxInfo = Object.assign([], auxRow.info);
               const exists =
                 auxInfo.findIndex((infoIndex) => infoIndex.index === i) !== -1;
               if (!exists) {
-                auxInfo.push({ index: i, pago, categoria });
-                auxRow.info = auxInfo;
-                if (auxRow.placa === placa) {
-                  auxInfo.forEach((infoPay) => {
-                    if (infoPay.categoria !== categoria) {
-                      auxRow.noIgual = true;
-                    }
-                  });
+                auxInfo.push({ index: i, categoria });
+                auxRow.info = Object.assign([], auxInfo);
+                const existCat = auxInfo.findIndex(
+                  (auxCat) => auxCat.categoria === categoria
+                );
+                if (existCat === -1) {
+                  auxRow.noIgual = true;
                 }
                 rows[indexed] = auxRow;
               }
@@ -62,31 +64,31 @@ const fileMutation = async (file, res) => {
           const { index } = modifySheet;
           const categoria = trazabilidadSheet.cell(`M${index}`).value();
           switch (categoria) {
-            case 1: {
+            case 1 || '1': {
               trazabilidadSheet.cell(`M${index}`).style('fill', '2095F2');
               break;
             }
-            case 2: {
+            case 2 || '2': {
               trazabilidadSheet.cell(`M${index}`).style('fill', 'FF5D33');
               break;
             }
-            case 3: {
+            case 3 || '3': {
               trazabilidadSheet.cell(`M${index}`).style('fill', 'd8b6df');
               break;
             }
-            case 4: {
+            case 4 || '4': {
               trazabilidadSheet.cell(`M${index}`).style('fill', '34c048');
               break;
             }
-            case 5: {
+            case 5 || '5': {
               trazabilidadSheet.cell(`M${index}`).style('fill', '3399ff');
               break;
             }
-            case 6: {
+            case 6 || '6': {
               trazabilidadSheet.cell(`M${index}`).style('fill', 'ffff00');
               break;
             }
-            case 7: {
+            case 7 || '7': {
               trazabilidadSheet.cell(`M${index}`).style('fill', '74C964');
               break;
             }
