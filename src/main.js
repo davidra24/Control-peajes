@@ -8,7 +8,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  window.loadURL('http://localhost:5002');
+  window.loadURL('http://localhost:5003');
   window.maximize();
   //window.webContents.openDevTools()
   window.on('close', (event) => {

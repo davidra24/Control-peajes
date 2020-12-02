@@ -42,7 +42,6 @@ button.addEventListener('click', () => {
           }
         })
         .then((result) => {
-          //const result = await res.text();
           toXLSX(result);
           file.value = '';
           file2.value = '';

@@ -13,7 +13,7 @@ const upload = multer({ storage }).fields([
 ]);
 
 //settings
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 5003;
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(cors());
