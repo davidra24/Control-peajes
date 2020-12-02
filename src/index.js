@@ -2,11 +2,18 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { fileMutation } = require('./js/fileMutation');
+const { fileLarge } = require('./js/fileLarge');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage }).fields([
+  { name: 'first', maxCount: 1 },
+  { name: 'second', maxCount: 1 },
+]);
 
 //settings
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5002;
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(cors());
@@ -29,7 +36,6 @@ app.post('/upload', async (req, res) => {
   const files = req.body;
   return await fileMutation(files, res);
 });
-//static files
 
 //listening server
 app.listen(port, () => {
