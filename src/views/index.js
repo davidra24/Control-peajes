@@ -34,17 +34,23 @@ button.addEventListener('click', () => {
         .then(async (res) => {
           if (res.status === 200) {
             return res.text();
-          } else if (res.satus === 510) {
-            alert('El nombre de la hoja debe ser "Trazabilidad"');
+          } else if (res.status === 501) {
+            alert('El nombre de las hojas están mal escritas');
+            handleLoading(false);
+          } else if (res.status === 502) {
+            alert('No se han podido leer los libros correctamente');
             handleLoading(false);
           } else {
-            alert('Ocurrió un problema al subir el archivo');
+            alert(
+              "Ocurrió un problema al subir el archivo, revise que los formatos de hora y fecha sean de tipo 'Texto' en los excel"
+            );
             handleLoading(false);
           }
         })
         .then((result) => {
-          //const result = await res.text();
-          toXLSX(result);
+          if (result) {
+            toXLSX(result);
+          }
           file.value = '';
           file2.value = '';
           sentidoSelect.value = '';

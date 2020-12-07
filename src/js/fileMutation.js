@@ -21,8 +21,7 @@ const fileMutation = async (files, res) => {
       // Modify the workbook.
       const trazabilidadSheet = await workbook.sheet('Trazabilidad');
       const pesoSheet = await workbook2.sheet(`SENTIDO ${sentido}`);
-      if (!trazabilidadSheet || !pesoSheet) res.status(510);
-      //console.log('trazabilidad', trazabilidadSheet);
+      if (!trazabilidadSheet || !pesoSheet) return res.status(501).send(null);
       const limitSheet = 80000;
       const limitSheet2 = 10000;
       const pesosBasculas = [];
@@ -45,7 +44,6 @@ const fileMutation = async (files, res) => {
 
       const rows = [];
       //{placa: ###, info: [{index: #, pago: $}]}
-      let limit = 0;
       for (let i = 2; i <= limitSheet && continuation; i++) {
         const fecha = trazabilidadSheet.cell(`A${i}`).value();
         const fechaHora = trazabilidadSheet.cell(`B${i}`).value();
@@ -172,10 +170,11 @@ const fileMutation = async (files, res) => {
       await res.setHeader('content-type', 'text/plain');
       await res.status(200).send(base64DataResponse);
     } else {
-      await res.status(500);
+      await res.status(502).send(null);
     }
   } catch (error) {
-    await res.status(500);
+    console.log(error);
+    await res.status(500).send(error);
   }
 };
 
