@@ -35,7 +35,10 @@ button.addEventListener('click', () => {
           if (res.status === 200) {
             return res.text();
           } else if (res.status === 501) {
-            alert('El nombre de las hojas están mal escritas');
+            alert('El nombre de la hoja "Trazabilidad" está mal escrito');
+            handleLoading(false);
+          } else if (res.status === 503) {
+            alert('El nombre de la hoja "SENTIDO" está mal escrita');
             handleLoading(false);
           } else if (res.status === 502) {
             alert('No se han podido leer los libros correctamente');

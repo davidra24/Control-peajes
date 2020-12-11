@@ -21,7 +21,8 @@ const fileMutation = async (files, res) => {
       // Modify the workbook.
       const trazabilidadSheet = await workbook.sheet('Trazabilidad');
       const pesoSheet = await workbook2.sheet(`SENTIDO ${sentido}`);
-      if (!trazabilidadSheet || !pesoSheet) return res.status(501).send(null);
+      if (!trazabilidadSheet) return await res.status(501).send(null);
+      if (!pesoSheet) return await res.status(503).send(null);
       const limitSheet = 80000;
       const limitSheet2 = 10000;
       const pesosBasculas = [];
