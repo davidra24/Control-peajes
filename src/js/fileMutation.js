@@ -44,9 +44,9 @@ const fileMutation = async (file, res) => {
                 auxInfo.push({ index: i, categoria });
                 auxRow.info = Object.assign([], auxInfo);
                 const existCat = auxInfo.findIndex(
-                  (auxCat) => auxCat.categoria === categoria
+                  (auxCat) => auxCat.categoria !== categoria
                 );
-                if (existCat === -1) {
+                if (existCat !== -1) {
                   auxRow.noIgual = true;
                 }
                 rows[indexed] = auxRow;
